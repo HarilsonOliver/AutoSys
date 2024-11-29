@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Harilson\\Documents\\Projetos\\DIO\\AutoSys\\minimal-api\\minimal-api.csproj": {}
+    "c:\\Users\\Harilson\\Documents\\Projetos\\DIO\\AutoSys\\minimal-api\\minimal-api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Harilson\\Documents\\Projetos\\DIO\\AutoSys\\minimal-api\\minimal-api.csproj": {
+    "c:\\Users\\Harilson\\Documents\\Projetos\\DIO\\AutoSys\\minimal-api\\minimal-api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Harilson\\Documents\\Projetos\\DIO\\AutoSys\\minimal-api\\minimal-api.csproj",
+        "projectUniqueName": "c:\\Users\\Harilson\\Documents\\Projetos\\DIO\\AutoSys\\minimal-api\\minimal-api.csproj",
         "projectName": "minimal-api",
-        "projectPath": "C:\\Users\\Harilson\\Documents\\Projetos\\DIO\\AutoSys\\minimal-api\\minimal-api.csproj",
+        "projectPath": "c:\\Users\\Harilson\\Documents\\Projetos\\DIO\\AutoSys\\minimal-api\\minimal-api.csproj",
         "packagesPath": "C:\\Users\\Harilson\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Harilson\\Documents\\Projetos\\DIO\\AutoSys\\minimal-api\\obj\\",
+        "outputPath": "c:\\Users\\Harilson\\Documents\\Projetos\\DIO\\AutoSys\\minimal-api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Harilson\\AppData\\Roaming\\NuGet\\NuGet.Config",
