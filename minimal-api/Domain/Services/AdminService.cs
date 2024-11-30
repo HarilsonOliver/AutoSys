@@ -15,6 +15,39 @@ public class AdminService : iAdminService
         _context =  context;
 
     }
+
+    public List<Admin> All(int? page)
+    {
+        var query =_context.Admins.AsQueryable();
+       
+       int itensPorPagina = 10;
+
+       if(page!= null){
+
+        query = query.Skip(((int)page - 1 ) * itensPorPagina).Take(itensPorPagina);
+
+       }
+
+       
+       return query.ToList();
+    }
+
+    
+
+    public Admin Create(Admin admin)
+    {
+
+        _context.Admins.Add(admin);
+        _context.SaveChanges();
+
+        return admin;
+    }
+
+    public Admin? FindId(int id)
+    {
+        return _context.Admins.Where(v => v.Id == id).FirstOrDefault();
+    }
+
     public Admin? Login(LoginDTO loginDTO)
     {
         var adm= _context.Admins.Where(a => a.Email == loginDTO.Email && a.Senha == loginDTO.Senha).FirstOrDefault();

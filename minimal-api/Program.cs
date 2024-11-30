@@ -7,6 +7,8 @@ using MinimalApi.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 using MinimalApi.Domain.Views;
 using MinimalApi.Domain.Entities;
+using System.Runtime.CompilerServices;
+using MinimalApi.Domain.Enuns;
 
 #region Builder
 var builder = WebApplication.CreateBuilder(args);
@@ -33,7 +35,7 @@ app.MapGet("/", () => Results.Json(new Home())).WithTags("Home");
 
 #region Admnistradores
 
-app.MapPost("admins/login", ([FromBody] LoginDTO loginDTO, iAdminService adminService) => {
+app.MapPost("/admins/login", ([FromBody] LoginDTO loginDTO, iAdminService adminService) => {
     if(adminService.Login(loginDTO) != null){
         return Results.Ok("Login realizado com sucesso");
     }
@@ -41,6 +43,68 @@ app.MapPost("admins/login", ([FromBody] LoginDTO loginDTO, iAdminService adminSe
         return Results.Unauthorized();
     }
 }).WithTags("Admins");
+
+app.MapGet("/admins", ([FromQuery] int? page, iAdminService adminService) => {
+    var adms = new List<AdminView>();
+    var admins = adminService.All(page);
+    foreach(var adm in admins){
+      adms.Add(new AdminView{
+        Id = adm.Id,
+        Email = adm.Email,
+        Perfil = adm.Perfil      
+      });
+    }
+    return Results.Ok(adms);
+}).WithTags("Admins");
+
+
+app.MapPost("/admins", ([FromBody] AdminDTO adminDTO, iAdminService adminService) => {
+  var validation = new ValidationErrors{
+    Messages = new List<string>()
+  };
+
+  if(string.IsNullOrEmpty(adminDTO.Email)){
+    validation.Messages.Add("O campo Email não pode ser vazio");
+  }
+  if(string.IsNullOrEmpty(adminDTO.Senha)){
+    validation.Messages.Add("O campo Senha não pode ser vazio");
+  }
+  if(adminDTO.Perfil == null){
+    validation.Messages.Add("O campo Perfil não pode ser vazio");
+  }
+  if(validation.Messages.Count > 0){
+    return Results.BadRequest(validation);
+  }
+      var admin = new Admin {
+      Email = adminDTO.Email,
+      Senha = adminDTO.Senha,
+      Perfil = adminDTO.Perfil.ToString() ?? Perfil.Editor.ToString()
+    };
+    adminService.Create(admin); 
+    return Results.Created($"/admins/{admin.Id}", new AdminView{
+      Id = admin.Id,
+      Email = admin.Email,
+      Perfil = admin.Perfil
+    });
+  
+  
+}).WithTags("Admins");
+
+app.MapGet("/admins/{id}", ([FromQuery] int id, iAdminService adminService) => {
+  
+  var admin = adminService.FindId(id);   
+
+  if(admin == null){
+    return Results.NotFound();
+  }  
+  return Results.Ok(new AdminView{
+    Id = admin.Id,
+    Email = admin.Email,
+    Perfil = admin.Perfil
+  });
+
+}).WithTags("Admins");
+
 #endregion
 
 #region Veiculos
@@ -65,24 +129,17 @@ ValidationErrors validaDTO(VeiculoDTO veiculoDTO){
 
 }
 app.MapPost("/veiculos", ([FromBody] VeiculoDTO veiculoDTO, iVeiculoService veiculoService) => {
-
-  
-
   var validation = validaDTO(veiculoDTO);
   if(validation.Messages.Count > 0){
     return Results.BadRequest(validation);
   }
-
   var veiculo = new Veiculo {
     Nome = veiculoDTO.Nome,
     Marca = veiculoDTO.Marca,
     Ano = veiculoDTO.Ano
   };
-  
-
   veiculoService.Create(veiculo);
   return Results.Created($"/veiculo/{veiculo.Id}", veiculo);
-
 }).WithTags("Veiculos");
 
 app.MapGet("/veiculos", ([FromQuery] int? page, iVeiculoService veiculoService) => {
