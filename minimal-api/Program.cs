@@ -10,6 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<iAdminService, AdminService>();
 
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSwaggerGen();
+
 builder.Services.AddDbContext<AppDbContext>(
     options => {options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
@@ -26,6 +30,8 @@ app.MapPost("/login", ([FromBody] LoginDTO loginDTO, iAdminService adminService)
     }
 });
 
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.Run();
 
