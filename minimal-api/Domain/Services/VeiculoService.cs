@@ -17,7 +17,7 @@ public class VeiculoService : iVeiculoService
 
     }
 
-    public List<Veiculo>? All(int page = 1, string? nome = null, string? marca = null)
+    public List<Veiculo>? All(int? page = 1, string? nome = null, string? marca = null)
     {
        var query =_context.Veiculos.AsQueryable();
        if(!string.IsNullOrEmpty(nome)){
@@ -26,8 +26,13 @@ public class VeiculoService : iVeiculoService
 
        int itensPorPagina = 10;
 
-       query = query.Skip((page - 1 ) * itensPorPagina).Take(itensPorPagina);
+       if(page!= null){
 
+        query = query.Skip(((int)page - 1 ) * itensPorPagina).Take(itensPorPagina);
+
+       }
+
+       
        return query.ToList();
     }
 

@@ -4,7 +4,7 @@ using MinimalApi.DTOs;
 namespace MinimalApi.Domain.Interface;
 
 public interface iVeiculoService {
-    List<Veiculo>? All(int page = 1, string? nome = null, string? marca = null);
+    List<Veiculo>? All(int? page = 1, string? nome = null, string? marca = null);
     Veiculo? FindId(int id);
     void Create(Veiculo veiculo);
 
