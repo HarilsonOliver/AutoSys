@@ -44,14 +44,41 @@ app.MapPost("admins/login", ([FromBody] LoginDTO loginDTO, iAdminService adminSe
 #endregion
 
 #region Veiculos
+
+ValidationErrors validaDTO(VeiculoDTO veiculoDTO){
+
+    var validation = new ValidationErrors{
+        Messages = new List<string>()
+    };
+
+  if(string.IsNullOrEmpty(veiculoDTO.Nome)){
+    validation.Messages.Add("O Nome não pode ser vazio");
+  }
+  if(string.IsNullOrEmpty(veiculoDTO.Marca)){
+    validation.Messages.Add("A Marca não pode estar em branco");
+  }
+  if(veiculoDTO.Ano < 1950){
+    validation.Messages.Add("Veículo muito antigo, somente aceito anos superiores a 1950!");
+  }
+
+  return validation;
+
+}
 app.MapPost("/veiculos", ([FromBody] VeiculoDTO veiculoDTO, iVeiculoService veiculoService) => {
+
   
+
+  var validation = validaDTO(veiculoDTO);
+  if(validation.Messages.Count > 0){
+    return Results.BadRequest(validation);
+  }
 
   var veiculo = new Veiculo {
     Nome = veiculoDTO.Nome,
     Marca = veiculoDTO.Marca,
     Ano = veiculoDTO.Ano
   };
+  
 
   veiculoService.Create(veiculo);
   return Results.Created($"/veiculo/{veiculo.Id}", veiculo);
@@ -79,11 +106,18 @@ app.MapGet("/veiculos/{id}", ([FromQuery] int id, iVeiculoService veiculoService
 
 app.MapPut("/veiculos/{id}", ([FromQuery] int id, VeiculoDTO veiculoDTO,iVeiculoService veiculoService) => {
   
+  
   var veiculo = veiculoService.FindId(id);   
-
   if(veiculo == null){
     return Results.NotFound();
   }
+
+  var validation = validaDTO(veiculoDTO);
+  if(validation.Messages.Count > 0){
+    return Results.BadRequest(validation);
+  }
+
+  
   
   veiculo.Nome = veiculoDTO.Nome;
   veiculo.Marca = veiculoDTO.Marca;
