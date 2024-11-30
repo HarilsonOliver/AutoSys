@@ -27,20 +27,20 @@ var app = builder.Build();
 
 # region Home
 
-app.MapGet("/", () => Results.Json(new Home()));
+app.MapGet("/", () => Results.Json(new Home())).WithTags("Home");
 
 #endregion
 
 #region Admnistradores
 
-app.MapPost("Admin/login", ([FromBody] LoginDTO loginDTO, iAdminService adminService) => {
+app.MapPost("admins/login", ([FromBody] LoginDTO loginDTO, iAdminService adminService) => {
     if(adminService.Login(loginDTO) != null){
         return Results.Ok("Login realizado com sucesso");
     }
     else {
         return Results.Unauthorized();
     }
-});
+}).WithTags("Admins");
 #endregion
 
 #region Veiculos
@@ -56,15 +56,14 @@ app.MapPost("/veiculos", ([FromBody] VeiculoDTO veiculoDTO, iVeiculoService veic
   veiculoService.Create(veiculo);
   return Results.Created($"/veiculo/{veiculo.Id}", veiculo);
 
-});
+}).WithTags("Veiculos");
 
 app.MapGet("/veiculos", ([FromQuery] int? page, iVeiculoService veiculoService) => {
   
-
   var veiculos = veiculoService.All(page);   
   return Results.Ok(veiculos);
 
-});
+}).WithTags("Veiculos");
 
 
 #endregion
