@@ -4877,24 +4877,27 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\CPDS\\.nuget\\packages\\": {}
+    "C:\\Users\\Harilson\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\CPDS\\Documents\\Projects\\DIO\\AutoSys\\minimal-api\\minimal-api.csproj",
+      "projectUniqueName": "C:\\Users\\Harilson\\Documents\\Projetos\\DIO\\AutoSys\\minimal-api\\minimal-api.csproj",
       "projectName": "minimal-api",
-      "projectPath": "C:\\Users\\CPDS\\Documents\\Projects\\DIO\\AutoSys\\minimal-api\\minimal-api.csproj",
-      "packagesPath": "C:\\Users\\CPDS\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\CPDS\\Documents\\Projects\\DIO\\AutoSys\\minimal-api\\obj\\",
+      "projectPath": "C:\\Users\\Harilson\\Documents\\Projetos\\DIO\\AutoSys\\minimal-api\\minimal-api.csproj",
+      "packagesPath": "C:\\Users\\Harilson\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Harilson\\Documents\\Projetos\\DIO\\AutoSys\\minimal-api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\CPDS\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Harilson\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
